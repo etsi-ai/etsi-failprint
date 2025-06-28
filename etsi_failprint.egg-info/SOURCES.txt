@@ -1,5 +1,7 @@
+LICENSE
 README.md
 pyproject.toml
+setup.cfg
 etsi/failprint/__init__.py
 etsi/failprint/cluster.py
 etsi/failprint/core.py
