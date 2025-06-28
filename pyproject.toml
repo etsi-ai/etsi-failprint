@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "etsi-failprint"
 version = "0.1.0"
 description = "Root Cause Analysis & Failure Segmentation for ML Workflows"
-authors = [{ name="Your Name", email="you@example.com" }]
+authors = [{ name="etsi", email="etsi.hq@gmail.com" }]
 dependencies = [
     "pandas",
     "numpy",
