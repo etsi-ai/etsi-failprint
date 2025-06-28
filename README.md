@@ -33,12 +33,8 @@ print(report)
 ```
 
 ##  What It Does
-    - Segments failures by input feature values (numerical/categorical)
-
-    - Highlights overrepresented values in failure cases
-
-    - Clusters similar failure samples for pattern recognition
-
-    - Writes log files and markdown reports for audit or CI/CD
-
-    - Compatible with MLOps tools (like MLflow, DVC, Airflow, Watchdog)
+- Segments failures by input feature values (numerical/categorical)
+- Highlights overrepresented values in failure cases
+- Clusters similar failure samples for pattern recognition
+- Writes log files and markdown reports for audit or CI/CD
+- Compatible with MLOps tools (like MLflow, DVC, Airflow, Watchdog)
