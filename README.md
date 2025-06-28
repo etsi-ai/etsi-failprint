@@ -1,7 +1,6 @@
 # failprint
 
 [![PyPI](https://img.shields.io/pypi/v/etsi-failprint.svg)](https://pypi.org/project/etsi-failprint/)
-[![PyPI Downloads](https://static.pepy.tech/badge/etsi-watchdog)](https://pepy.tech/projects/etsi-watchdog)
 
 
 **failprint** is an MLOps-first diagnostic tool that performs automatic root cause analysis on your ML model's failure patterns.
