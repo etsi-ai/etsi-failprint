@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "etsi-failprint"
+version = "0.1.0"
+description = "Root Cause Analysis & Failure Segmentation for ML Workflows"
+authors = [{ name="Your Name", email="you@example.com" }]
+dependencies = [
+    "pandas",
+    "numpy",
+    "scikit-learn"
+]
+requires-python = ">=3.8"
+
+[tool.setuptools.packages.find]
+include = ["etsi*"]
