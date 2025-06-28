@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "etsi-failprint"
-version = "0.1.0"
+version = "0.1.1"
 description = "Root Cause Analysis & Failure Segmentation for ML Workflows"
 authors = [{ name="etsi", email="etsi.hq@gmail.com" }]
 dependencies = [
