@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.env
+.venv
+*.log
+
+# Jupyter
+.ipynb_checkpoints
+
+# VS Code / PyCharm
+.vscode/
+.idea/
+
+# Failprint generated
+failprint.log
+reports/*.md
+
+# OS
+.DS_Store
+Thumbs.db
