@@ -20,7 +20,7 @@ We welcome contributions to make Failprint better! Before you start, please take
 
 To ensure that all code in the project is consistent, please follow these coding style guidelines:
 
-- **Indentation**: Use 4 spaces for indentation. No tabs.
+- **Indentation**: Use spaces for indentation. No tabs.
 - **Naming**: Use descriptive names for functions, variables, and classes.
 - **Documentation**: Comment your code where necessary and add docstrings for functions and classes.
 
