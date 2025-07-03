@@ -41,3 +41,27 @@ print(report)
 - Clusters similar failure samples for pattern recognition
 - Writes log files and markdown reports for audit or CI/CD
 - Compatible with MLOps tools (like MLflow, DVC, Airflow, Watchdog)
+
+## Future Contribution Ideas
+
+We welcome community contributions! Here are some ideas for future enhancements:
+
+- **Integration with additional MLOps platforms**  
+  Extend compatibility to more tools (e.g., Kubeflow, ZenML, Flyte) to streamline diagnostics in diverse ML pipelines[5][6].
+
+- **Advanced visualization dashboards**  
+  Add interactive dashboards (e.g., via Streamlit or Dash) for exploring failure patterns and root causes visually.
+
+- **Explainability integrations**  
+  Incorporate explainability libraries (e.g., SHAP, LIME) to provide feature attribution for failure segments[4].
+
+- **Support for unstructured data**  
+  Enable analysis of failures in NLP and CV models by integrating embedding-based clustering and drift detection[4].
+
+- **Plugin system for custom analyses**  
+  Allow users to add custom scripts or modules for domain-specific failure analysis.
+
+- **Expanded documentation and tutorials**  
+  Add more real-world examples, troubleshooting guides, and video walkthroughs to help new users get started quickly[10].
+
+Have an idea not listed here? Open an issue or submit a pull request!
