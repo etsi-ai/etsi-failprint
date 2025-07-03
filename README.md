@@ -64,4 +64,8 @@ We welcome community contributions! Here are some ideas for future enhancements:
 - **Expanded documentation and tutorials**  
   Add more real-world examples, troubleshooting guides, and video walkthroughs to help new users get started quickly[10].
 
-Have an idea not listed here? Open an issue or submit a pull request!
+## 🤝 Contributing
+
+Contributions are welcome. If you have an idea for optimisation of existing features or improvement, please open a PR on GitHub.
+Please refer to [CONTRIBUTING.md](https://github.com/etsi-ai/etsi-watchdog/blob/main/CONTRIBUTING.md) for contribution guidelines and ensure
+
