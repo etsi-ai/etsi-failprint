@@ -32,7 +32,7 @@ Community leaders have the right to remove, edit, or reject comments, commits, c
 
 ## Scope
 
-This Code of Conduct applies within all community spaces, including when an individual is officially representing the ETNA community in public spaces. Examples include using an official email address, posting on official social media accounts, or acting as an appointed representative at events.
+This Code of Conduct applies within all community spaces, including when an individual is officially representing the Et-si community in public spaces. Examples include using an official email address, posting on official social media accounts, or acting as an appointed representative at events.
 
 ## Reporting Violations
 
