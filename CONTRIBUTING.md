@@ -13,7 +13,7 @@ We welcome contributions to make Failprint better! Before you start, please take
 3. **Ensure the tests pass** by running `pytest` (or your preferred test framework).
    - Make sure your code adheres to the project's coding standards.
 
-4. **Create a Pull Request (PR)** when you’re ready to submit your changes.
+4. **First raise an issue and wait for it to be assigned.Then only create a Pull Request (PR)** when you’re ready to submit your changes.
    - Provide a detailed description of what the PR does, and include relevant issue references (if any).
 
 ## Code Style
