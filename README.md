@@ -67,5 +67,5 @@ We welcome community contributions! Here are some ideas for future enhancements:
 ## 🤝 Contributing
 
 Contributions are welcome. If you have an idea for optimisation of existing features or improvement, please open a PR on GitHub.
-Please refer to [CONTRIBUTING.md](https://github.com/etsi-ai/etsi-watchdog/blob/main/CONTRIBUTING.md) for contribution guidelines and ensure
+Please refer to [CONTRIBUTING.md](https://github.com/etsi-ai/etsi-failprint/blob/main/CONTRIBUTING.md) for contribution guidelines and ensure
 
