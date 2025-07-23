@@ -32,6 +32,7 @@ class ReportWriter:
             md.append(f"**{feat}**:")
             for val, fail_pct, delta in vals:
                 md.append(f"- `{val}` → {fail_pct*100:.1f}% in failures (Δ +{delta*100:.1f}%)")
+            md.append("") 
         return "\n".join(md)
 
     def write(self):
