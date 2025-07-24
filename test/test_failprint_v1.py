@@ -9,5 +9,5 @@ X = pd.DataFrame({
 y_true = pd.Series([1, 1, 1, 0, 0, 1, 0])
 y_pred = pd.Series([1, 1, 0, 0, 0, 1, 1])
 
-report = analyze(X, y_true, y_pred, output="markdown", cluster=True)
-print(report)
+report = analyze(X, y_true, y_pred, output="html", cluster=True)
+print("HTML report generated at: reports/failprint_report.html")
