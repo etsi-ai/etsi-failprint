@@ -12,7 +12,22 @@ def analyze(X: pd.DataFrame, y_true: pd.Series, y_pred: pd.Series,
             drift_scores: dict = None,
             output: str = "markdown",
             log_path: str = "failprint.log"):
+    """
+    Analyze model predictions and generate a report.
 
+    Parameters:
+        X (pd.DataFrame): Feature data.
+        y_true (pd.Series): Ground truth labels.
+        y_pred (pd.Series): Predicted labels.
+        threshold (float): Threshold for segmenting failures.
+        cluster (bool): Whether to cluster failure cases.
+        drift_scores (dict): Optional drift scores for correlation.
+        output (str): Output format: 'markdown' (default), 'text', or 'html'.
+        log_path (str): Path to log file.
+
+    Returns:
+        str: The generated report (markdown or HTML).
+    """
     assert len(X) == len(y_true) == len(y_pred), "Data length mismatch."
 
     # Align indices
@@ -33,7 +48,7 @@ def analyze(X: pd.DataFrame, y_true: pd.Series, y_pred: pd.Series,
     # Step 4: Optional drift correlation
     drift_corr = compute_drift_correlation(X, y_true, drift_scores) if drift_scores else {}
 
-    # Step 5: Write markdown report + logs
+    # Step 5: Write report (markdown or HTML) + logs
     report = ReportWriter(
         segments=segments,
         drift_map=drift_corr,

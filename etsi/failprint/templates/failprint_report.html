@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Failprint HTML Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; background: #f8f9fa; }
+        h1, h2, h3 { color: #2c3e50; }
+        .summary { background: #eaf6fb; padding: 1em; border-radius: 8px; margin-bottom: 2em; }
+        .failure-rate { font-size: 1.2em; color: #c0392b; font-weight: bold; }
+        .feature-table { border-collapse: collapse; width: 100%; margin-bottom: 2em; }
+        .feature-table th, .feature-table td { border: 1px solid #ddd; padding: 8px; }
+        .feature-table th { background: #b2bec3; }
+        .highlight { background: #ffeaa7; font-weight: bold; }
+        .cluster-block { background: #dff9fb; border-left: 5px solid #0984e3; margin: 1em 0; padding: 1em; border-radius: 6px; }
+    </style>
+    {{ plotly_scripts|safe }}
+</head>
+<body>
+    <h1>Failprint HTML Report</h1>
+    <div class="summary">
+        <p><b>Timestamp:</b> {{ timestamp }}</p>
+        <p><b>Total Samples:</b> {{ total }}</p>
+        <p class="failure-rate">Failures: {{ failures }} ({{ misclass_pct }}%)</p>
+    </div>
+    <h2>Top Features Influencing Failures</h2>
+    <div>{{ feature_chart|safe }}</div>
+    <h2>Cluster-wise Feature Stats</h2>
+    <div>{{ cluster_stats|safe }}</div>
+    <h2>Failure Segments</h2>
+    <div>{{ failure_segments|safe }}</div>
+</body>
+</html>
