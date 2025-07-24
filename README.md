@@ -69,3 +69,11 @@ We welcome community contributions! Here are some ideas for future enhancements:
 Contributions are welcome. If you have an idea for optimisation of existing features or improvement, please open a PR on GitHub.
 Please refer to [CONTRIBUTING.md](https://github.com/etsi-ai/etsi-failprint/blob/main/CONTRIBUTING.md) for contribution guidelines and ensure
 
+## 📄 License
+
+This project is licensed under the BSD 2-Clause License.
+
+<details>
+<summary>📜 Click here to view full license</summary>
+
+<br>
