@@ -35,6 +35,15 @@ To run the example scripts, install these packages:
 pip install pandas scikit-learn seaborn
 ```
 
+These are required to:
+
+- 📊 Handle tabular data (`pandas`)  
+- 🤖 Use ML tools and utilities (`scikit-learn`)  
+- 🧬 Load example datasets like `iris`, `titanic` (`seaborn`)  
+
+> 📌 **Note:** These dependencies are only needed for examples and demos. If you're using `etsi-failprint` in your own pipeline, you likely already have these installed.
+
+
 ---
 
 ## 🏁 Quick Start
