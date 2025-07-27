@@ -31,7 +31,7 @@ def analyze(X: pd.DataFrame, y_true: pd.Series, y_pred: pd.Series,
     clusters = cluster_failures(failed_X) if cluster else None
 
     # Step 4: Optional drift correlation
-    drift_corr = compute_drift_correlation(X, y_true, drift_scores) if drift_scores else {}
+    drift_corr = compute_drift_correlation(X, y_true, y_pred, drift_scores) if drift_scores else {}
 
     # Step 5: Write markdown report + logs
     report = ReportWriter(
