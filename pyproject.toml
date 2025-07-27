@@ -26,7 +26,17 @@ classifiers = [
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11"
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11"
+] 
+keywords = [
+  "MLOps", "failure-analysis", "diagnostics", "model-monitoring", "debugging", "root-cause"
 ]
-
+urls = {
+  "Homepage"    = "https://github.com/etsi-ai/etsi-failprint",
+  "Repository"  = "https://github.com/etsi-ai/etsi-failprint",
+  "Bug Tracker" = "https://github.com/etsi-ai/etsi-failprint/issues"
+}
 [tool.setuptools.packages.find]
 include = ["etsi", "etsi.*"]
