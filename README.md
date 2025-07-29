@@ -19,6 +19,20 @@ It segments, clusters, and correlates failed predictions with input data feature
 - [💡 Future Contribution Ideas](#-future-contribution-ideas)
 - [🗂️ License](#-license)
 
+## 🛠️ Requirements
+
+Before installing **failprint**, make sure your environment meets the following requirements:
+
+- **Python 3.7 or above**
+- **pip** (Python package installer)
+- Internet connection to download dependencies
+
+Optional (for examples and extended functionality):
+- `pandas`
+- `scikit-learn`
+- `seaborn`
+
+---
 ## 🚀 Installation
 
 ```sh
