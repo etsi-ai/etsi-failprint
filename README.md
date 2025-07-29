@@ -179,6 +179,7 @@ This project is licensed under the BSD 2-Clause License.
     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 </details>
+
 ---
 
 > Made with ❤️ by the etsi-ai team
