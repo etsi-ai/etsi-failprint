@@ -1,4 +1,6 @@
 import pandas as pd
+from scipy.stats import pearsonr
+import numpy as np
 from datetime import datetime
 from .segmenter import segment_failures
 from .cluster import cluster_failures
