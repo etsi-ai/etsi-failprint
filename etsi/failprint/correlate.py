@@ -1,8 +1,8 @@
-def compute_drift_correlation(X, y_true, drift_scores: dict):
+def compute_drift_correlation(X, y_true, y_pred, drift_scores: dict):
     if not drift_scores:
         return {}
 
-    failed_idx = y_true != y_true  # Dummy fallback
+    failed_idx = y_true != y_pred  # Dummy fallback
     failed = X[failed_idx]
 
     corr = {}
