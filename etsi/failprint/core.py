@@ -6,6 +6,43 @@ from .segmenter import segment_failures
 from .cluster import cluster_failures
 from .correlate import compute_drift_correlation
 from .report import ReportWriter
+from .nlp import cluster_failures_with_dbscan 
+from .report import NlpReportWriter 
+
+def analyze_nlp(texts: list, y_true: list, y_pred: list,
+                output: str = "markdown",
+                log_path: str = "failprint.log"):
+    """
+    Analyzes failures in NLP model predictions.
+    """
+    assert len(texts) == len(y_true) == len(y_pred), "Data length mismatch."
+
+    # Step 1: Identify failures
+    # Create a DataFrame to easily manage the data
+    df = pd.DataFrame({
+        'text': texts,
+        'y_true': y_true,
+        'y_pred': y_pred
+    })
+    failures_df = df[df['y_true'] != df['y_pred']].copy()
+
+    # Step 2: Cluster failure cases using your new NLP function
+    # This calls the DBSCAN logic from your nlp.py file
+    clustered_failures_df = cluster_failures_with_dbscan(failures_df)
+
+    # Step 3: Write markdown report using your new NLP Report Writer
+    # This passes the clustered DataFrame to the new report writer
+    report = NlpReportWriter(
+        clustered_failures=clustered_failures_df,
+        output=output,
+        log_path=log_path,
+        failures=len(failures_df),
+        total=len(df),
+        timestamp=datetime.now().isoformat()
+    )
+
+    # Step 4: Generate the report and return it
+    return report.write()
 from .counterfactuals import suggest_counterfactual
 from .explain import explain_failures
 from .cv_features import build_cv_feature_df
