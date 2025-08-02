@@ -2,11 +2,12 @@ import os
 
 
 class ReportWriter:
-    def __init__(self, segments, drift_map, clustered_segments,
+    def __init__(self, segments, drift_map, clustered_segments, shap_summary,
                  output, log_path, total, failures, timestamp):
         self.segments = segments
         self.drift_map = drift_map
         self.clusters = clustered_segments
+        self.shap_summary = shap_summary
         self.output = output
         self.log_path = log_path
         self.total = total
@@ -32,6 +33,12 @@ class ReportWriter:
             md.append(f"**{feat}**:")
             for val, fail_pct, delta in vals:
                 md.append(f"- `{val}` → {fail_pct*100:.1f}% in failures (Δ +{delta*100:.1f}%)")
+
+        if self.shap_summary is not None:
+            md.append("\n## Top Features Driving Failures (SHAP Analysis)")
+            md.append("Features are ranked by their mean absolute SHAP value across all failures.")
+            md.append(self.shap_summary.to_markdown())
+
         return "\n".join(md)
 
     def write(self):
