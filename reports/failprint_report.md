@@ -1,29 +1,24 @@
 # failprint Report
-- Timestamp: 2025-07-25T18:15:17.962328
-- Total Samples: 37
-- Failures: 12 (32.43%)
+- Timestamp: 2025-08-02T22:09:34.160637
+- Total Samples: 143
+- Failures: 31 (21.68%)
 
 ## Contributing Feature Segments
-**age**:
-- `37.0` → 8.3% in failures (Δ +5.6%)
-- `29.0` → 25.0% in failures (Δ +14.2%)
-- `19.0` → 8.3% in failures (Δ +5.6%)
-- `36.0` → 8.3% in failures (Δ +5.6%)
-- `60.0` → 8.3% in failures (Δ +5.6%)
-- `50.0` → 8.3% in failures (Δ +5.6%)
-- `80.0` → 8.3% in failures (Δ +5.6%)
-- `47.0` → 8.3% in failures (Δ +5.6%)
-**fare**:
-- `50.4958` → 8.3% in failures (Δ +5.6%)
-- `27.75` → 8.3% in failures (Δ +5.6%)
-- `53.1` → 8.3% in failures (Δ +5.6%)
-- `10.4625` → 8.3% in failures (Δ +5.6%)
-- `7.65` → 8.3% in failures (Δ +5.6%)
-- `40.125` → 8.3% in failures (Δ +5.6%)
-- `79.2` → 8.3% in failures (Δ +5.6%)
-- `30.0` → 16.7% in failures (Δ +11.3%)
-- `38.5` → 8.3% in failures (Δ +5.6%)
-- `66.6` → 8.3% in failures (Δ +5.6%)
-**pclass**:
-- `3` → 16.7% in failures (Δ +11.3%)
+**Age**:
+- `28.0` → 9.7% in failures (Δ +5.5%)
+**Parch**:
+- `0` → 87.1% in failures (Δ +12.3%)
+**Fare**:
+- `7.925` → 12.9% in failures (Δ +6.6%)
+
+## Top Features Driving Failures (SHAP Analysis)
+Features are ranked by their mean absolute SHAP value across all failures.
+|        |   mean_abs_shap_value |
+|:-------|----------------------:|
+| Sex    |             0.241509  |
+| Age    |             0.15351   |
+| Pclass |             0.138777  |
+| Fare   |             0.115429  |
+| SibSp  |             0.0560138 |
+| Parch  |             0.0217135 |
 
