@@ -49,9 +49,8 @@ def analyze(X: pd.DataFrame, y_true: pd.Series, y_pred: pd.Series,
     drift_corr = compute_drift_correlation(X, y_true, drift_scores) if drift_scores else {}
 
     shap_summary = None
-    if explain:
-        if model is not None and X_train is not None:
-            shap_summary = explain_failures(model, X_train, failed_X)
+    if explain and model is not None and X_train is not None:
+        shap_summary = explain_failures(model, X_train, failed_X)
 
     report = ReportWriter(
         segments=segments,
