@@ -8,7 +8,9 @@ from .correlate import compute_drift_correlation
 from .report import ReportWriter
 from .counterfactuals import suggest_counterfactual
 from .explain import explain_failures
-
+from .cv_features import build_cv_feature_df
+from .cluster import cluster_cv_failures
+from .report import CvReportWriter
 
 def analyze(X: pd.DataFrame, y_true: pd.Series, y_pred: pd.Series,
             threshold: float = 0.05,
@@ -65,3 +67,59 @@ def analyze(X: pd.DataFrame, y_true: pd.Series, y_pred: pd.Series,
     )
 
     return report.write()
+
+
+def analyze_cv(image_paths: list, y_true: list, y_pred: list,
+               model_name: str = "cv_model",
+               embedding_model: str = "resnet50",
+               cluster_failures: bool = True,
+               output: str = "markdown",
+               log_path: str = "failprint.log"):
+    """
+    Analyzes failures in Computer Vision model predictions.
+    """
+    assert len(image_paths) == len(y_true) == len(y_pred), "Data length mismatch."
+
+    # Step 1: Create a DataFrame to manage the data
+    df = pd.DataFrame({
+        'image_path': image_paths,
+        'y_true': y_true,
+        'y_pred': y_pred
+    })
+    
+    # Step 2: Identify all failures
+    failed_idx = df['y_true'] != df['y_pred']
+    failures_df = df[failed_idx].copy()
+
+    if failures_df.empty:
+        print("[failprint] No failures detected. No report generated.")
+        return "No failures detected."
+
+    # --- CV-Specific Analysis Pipeline ---
+
+    # Step 3: Extract statistical features (brightness, contrast, etc.) from all images
+    # This creates a baseline for comparison.
+    cv_features_df = build_cv_feature_df(df['image_path'])
+    failed_cv_features_df = cv_features_df[failed_idx]
+
+    # Step 4: Segment failures to find biases in image properties
+    # Reuses the same segmenter function from the structured data analysis.
+    cv_segments = segment_failures(cv_features_df, failed_cv_features_df, threshold=0.05)
+    
+    # Step 5: Cluster failures visually using image embeddings (if requested)
+    clustered_failures_df = None
+    if cluster_failures:
+        clustered_failures_df = cluster_cv_failures(failures_df)
+        
+    # Step 6: Generate the final report using the new CvReportWriter
+    report_writer = CvReportWriter(
+        clustered_failures=clustered_failures_df,
+        cv_segments=cv_segments, # Pass the new statistical segments
+        output=output,
+        log_path=log_path,
+        failures=len(failures_df),
+        total=len(df),
+        timestamp=datetime.now().isoformat()
+    )
+    
+    return report_writer.write()
