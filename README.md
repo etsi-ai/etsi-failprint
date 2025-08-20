@@ -94,6 +94,30 @@ The example scripts will print a markdown report to your terminal and may also g
 
 ---
 
+## 🗂️ Project Structure
+
+- The repository is organized as follows:
+
+```text
+
+failprint/
+├── docs/              # Documentation and contributor guides
+├── etsi/failprint/    # Core source code of the failprint package
+├── examples/          # Example workflows and usage scripts
+├── reports/           # Generated reports and analysis outputs
+├── test/              # Unit tests and validation scripts
+├── .gitignore         # Files and directories ignored by Git
+├── CODE_OF_CONDUCT.md # Contributor code of conduct
+├── CONTRIBUTING.md    # Guidelines for contributing
+├── LICENSE            # License information
+├── README.md          # Project overview and usage guide
+├── failprint.log      # Log file for debugging and analysis
+├── pyproject.toml     # Project dependencies and build configuration
+└── setup.cfg          # Packaging and setup configuration
+
+```
+---
+
 ## 🛠️ Troubleshooting
 
 - **Can’t activate venv?**  
