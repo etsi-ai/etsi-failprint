@@ -2,7 +2,7 @@ import pandas as pd
 from scipy.stats import pearsonr
 import numpy as np
 from datetime import datetime
-from failprint.nlp_features import build_nlp_feature_df
+from .nlp_features import build_nlp_feature_df
 from .segmenter import segment_failures
 from .cluster import cluster_failures
 from .correlate import compute_drift_correlation
