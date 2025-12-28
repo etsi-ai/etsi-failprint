@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "etsi-failprint"
-version = "0.1.2"
+version = "0.2.0"
 description = "Automated failure pattern detection and root-cause analysis for ML workflows"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -17,7 +17,13 @@ dependencies = [
   "numpy",
   "scikit-learn",
   "shap",
-  "tabulate"
+  "tabulate",
+  "torch",
+  "torchvision",
+  "sentence-transformers",
+  "spacy",
+  "textblob",
+  "Pillow"
 ]
 classifiers = [
   "Development Status :: 3 - Alpha",
@@ -34,10 +40,11 @@ classifiers = [
 keywords = [
   "MLOps", "failure-analysis", "diagnostics", "model-monitoring", "debugging", "root-cause"
 ]
-urls = {
-  "Homepage"    = "https://github.com/etsi-ai/etsi-failprint",
-  "Repository"  = "https://github.com/etsi-ai/etsi-failprint",
-  "Bug Tracker" = "https://github.com/etsi-ai/etsi-failprint/issues"
-}
+
+[project.urls]
+Homepage = "https://github.com/etsi-ai/etsi-failprint"
+Repository = "https://github.com/etsi-ai/etsi-failprint"
+"Bug Tracker" = "https://github.com/etsi-ai/etsi-failprint/issues"
+
 [tool.setuptools.packages.find]
 include = ["etsi", "etsi.*"]

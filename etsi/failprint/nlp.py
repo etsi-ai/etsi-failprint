@@ -1,10 +1,14 @@
+# etsi/failprint/nlp.py
+
 import numpy as np
 import pandas as pd
-from sentence_transformers import SentenceTransformer
 from sklearn.cluster import DBSCAN
 
 def convert_to_embeddings(texts: list, model_name: str = 'all-MiniLM-L6-v2') -> np.ndarray:
     """Converts a list of texts to embeddings."""
+    # Lazy import
+    from sentence_transformers import SentenceTransformer
+    
     model = SentenceTransformer(model_name)
     embeddings = model.encode(texts)
     return embeddings
@@ -22,4 +26,3 @@ def cluster_failures_with_dbscan(df: pd.DataFrame) -> pd.DataFrame:
     df['cluster'] = dbscan.labels_
     
     return df
-

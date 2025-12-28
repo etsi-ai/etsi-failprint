@@ -7,8 +7,9 @@ from .segmenter import segment_failures
 from .cluster import cluster_failures
 from .correlate import compute_drift_correlation
 from .report import ReportWriter
-from .nlp import cluster_failures_with_dbscan 
-from .report import NlpReportWriter 
+from .nlp import cluster_failures_with_dbscan
+from .report import NlpReportWriter
+from .data_validation import validate_data
 
 def analyze_nlp(texts: list, y_true: list, y_pred: list,
                 model_name: str = "nlp_model",
@@ -70,6 +71,7 @@ def analyze_nlp(texts: list, y_true: list, y_pred: list,
 
     # Step 6: Generate and return the report
     return report_writer.write()
+
 from .counterfactuals import suggest_counterfactual
 from .explain import explain_failures
 from .cv_features import build_cv_feature_df
@@ -85,6 +87,12 @@ def analyze(X: pd.DataFrame, y_true: pd.Series, y_pred: pd.Series,
             drift_scores: dict = None,
             output: str = "markdown",
             log_path: str = "failprint.log"):
+
+    # 1. Validation Step
+    try:
+        validate_data(X, y_true, y_pred)
+    except ValueError as e:
+        return f"Error: {e}"
 
     assert len(X) == len(y_true) == len(y_pred), "Data length mismatch."
 
