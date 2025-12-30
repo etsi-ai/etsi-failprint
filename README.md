@@ -6,7 +6,7 @@
 
 [![License](https://img.shields.io/badge/License-BSD_2--Clause-orange.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
-[![PyPI](https://img.shields.io/badge/PyPI-v0.6.0-blueviolet)](https://pypi.org/project/etsi-failprint/)
+[![PyPI](https://img.shields.io/badge/PyPI-v0.2.0-blueviolet)](https://pypi.org/project/etsi-failprint/)
 [![Status](https://img.shields.io/badge/Status-Alpha-green)]()
 
 > **Don't just measure accuracy. Understand failure.**
