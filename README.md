@@ -1,222 +1,182 @@
-# failprint
+<div align="center">
 
-[![PyPI](https://img.shields.io/pypi/v/etsi-failprint.svg)](https://pypi.org/project/etsi-failprint/)
+# etsi-failprint
 
-**failprint** is an MLOps-first diagnostic tool that performs automatic root cause analysis on your ML model's failure patterns.
+### Automated Diagnostics. Root Cause Analysis. Actionable Insights.
 
-It segments, clusters, and correlates failed predictions with input data features — surfacing **which features are contributing to failure**, **which data segments fail the most**, and **how drift or imbalance may be related to model degradation**.
+[![License](https://img.shields.io/badge/License-BSD_2--Clause-orange.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
+[![PyPI](https://img.shields.io/badge/PyPI-v0.6.0-blueviolet)](https://pypi.org/project/etsi-failprint/)
+[![Status](https://img.shields.io/badge/Status-Alpha-green)]()
+
+> **Don't just measure accuracy. Understand failure.**
+
+`etsi-failprint` is a diagnostic tool designed to answer the question: *"Why is my model failing?"* It automatically isolates failure patterns across Tabular, NLP, and Computer Vision workflows, generating human-readable reports that pinpoint the root cause of errors.
+
+[Features](#key-features) • [Installation](#installation) • [Quickstart](#quickstart) • [Multi-Modal Analysis](#multi-modal-analysis) • [Counterfactuals](#counterfactuals)
+
+</div>
+
+---
+
+## Why Failprint?
+
+Standard metrics (Accuracy, F1) tell you *how often* you fail. Failprint tells you *why*.
+
+* **Multi-Modal Native**: Seamlessly analyze failures in structured DataFrames, raw Text, or Image datasets using a unified API.
+* **Automated Segmentation**: Automatically discovers weak spots (e.g., "Model fails 80% of the time when `Income < 50k`").
+* **Lazy & Lightweight**: Heavy dependencies (Torch, SpaCy, Transformers) are **lazy-loaded**. If you only analyze tabular data, you never pay the memory cost of deep learning libraries.
+* **Robust**: Built with graceful degradation. If an optional dependency is missing or incompatible, Failprint adapts instead of crashing.
 
 ---
 
-## 📑 Table of Contents
+## Key Features
 
-- [🚀 Installation](#-installation)
-- [⚡ Quick Start](#-quick-start)
-- [📊 What It Does](#-what-it-does)
-- [📚 Documentation & Examples](#-documentation--examples)
-- [🛠️ Troubleshooting](#-troubleshooting)
-- [🤝 Contributing](#-contributing)
-- [💡 Future Contribution Ideas](#-future-contribution-ideas)
-- [🗂️ License](#-license)
-
-## 🛠️ Requirements
-
-Before installing **failprint**, make sure your environment meets the following requirements:
-
-- **Python 3.7 or above**
-- **pip** (Python package installer)
-- Internet connection to download dependencies
-
-Optional (for examples and extended functionality):
-- `pandas`
-- `scikit-learn`
-- `seaborn`
+* **Smart Segmentation**: Identifies feature ranges or categories where error rates are statistically anomalous.
+* **Semantic Clustering**:
+    * *NLP*: Groups failed texts by semantic meaning using Sentence Transformers.
+    * *CV*: Clusters failed images using ResNet embeddings to find visual patterns.
+* **Meta-Feature Extraction**:
+    * *Text*: Analyzes failures by length, sentiment, subjectivity, and NER entities.
+    * *Vision*: Analyzes failures by brightness, contrast, aspect ratio, and dimensions.
+* **Counterfactuals**: Suggests minimal changes to input data that would flip a failure to a success.
+* **Actionable Reporting**: Outputs detailed Markdown reports with visual insights directly to your workspace.
 
 ---
-## 🚀 Installation
 
-```sh
+## Installation
+
+### Prerequisites
+* Python (3.8 or later)
+
+### From PyPI
+```bash
 pip install etsi-failprint
 ```
 
----
-
-## ⚡ Example Prerequisites
-
-To run the example scripts, install these packages:
-
-```sh
-pip install pandas scikit-learn seaborn
+### From Source
+```bash
+git clone https://github.com/etsi-failprint/etsi-failprint.git
+cd etsi-failprint
+pip install -e .
 ```
 
 ---
 
-## 🏁 Quick Start
+## Quickstart
+
+### 1. Tabular Data Analysis
+
+Identify which features are driving your model's mistakes.
 
 ```python
 import pandas as pd
 from etsi.failprint import analyze
 
-# Sample inputs
-X = pd.DataFrame({
-    "feature1": [1, 2, 2, 3, 3, 3, 4],
-    "feature2": [10, 15, 14, 13, 12, 13, 20],
-    "category": ["A", "B", "B", "B", "C", "C", "A"]
-})
-y_true = pd.Series([1, 1, 1, 0, 0, 1, 0])
-y_pred = pd.Series([1, 1, 0, 0, 0, 1, 1])
+# Load your data
+df = pd.read_csv("loan_predictions.csv")
+X = df.drop("target", axis=1)
+y_true = df["target"]
+y_pred = pd.Series([0, 1, 0, ...]) # Your model's predictions
 
-# Analyze misclassifications
-report = analyze(X, y_true, y_pred, output="markdown", cluster=True)
+# Run analysis
+report = analyze(
+    X, y_true, y_pred,
+    cluster=True,       # Cluster similar failures?
+    output="markdown"   # Generate 'failprint_report.md'
+)
+
 print(report)
 ```
 
----
+Output Insight: "Segment Age < 25 contributes to 40% of all failures."
 
-## 📊 What It Does
+## Multi-Modal Analysis
 
-- Segments failures by input feature values (numerical/categorical)
-- Highlights overrepresented values in failure cases
-- Clusters similar failure samples for pattern recognition
-- Writes log files and markdown reports for audit or CI/CD
-- Compatible with MLOps tools (like MLflow, DVC, Airflow, Watchdog)
+Failprint isn't just for spreadsheets. It understands unstructured data too.
 
----
+### 2. NLP Analysis (Text)
 
-## 📚 Documentation
+Lazy-loads spacy and sentence-transformers to find semantic and structural failure patterns.
 
-- [Getting Started Guide](docs/getting_started.md)
-- [Example: Titanic Dataset](examples/titanic_workflow.py)
-- [Example: Iris Dataset with Pipeline](examples/iris_pipeline.py)
-- [Example: Wine Dataset with Random Forest](examples/wine_random_forest.py)
+```python
+from etsi.failprint import analyze_nlp
 
-The example scripts will print a markdown report to your terminal and may also generate a file in the `reports/` folder.
+texts = [
+    "I love this product!", 
+    "Terrible service, very slow.", 
+    "Product is okay but arrived late."
+]
+y_true = [1, 0, 0] # Sentiment labels
+y_pred = [1, 1, 0] # Model predictions (Error on index 1)
 
----
-
-## 🗂️ Project Structure
-
-- The repository is organized as follows:
-
-```text
-
-failprint/
-├── docs/              # Documentation and contributor guides
-├── etsi/failprint/    # Core source code of the failprint package
-├── examples/          # Example workflows and usage scripts
-├── reports/           # Generated reports and analysis outputs
-├── test/              # Unit tests and validation scripts
-├── .gitignore         # Files and directories ignored by Git
-├── CODE_OF_CONDUCT.md # Contributor code of conduct
-├── CONTRIBUTING.md    # Guidelines for contributing
-├── LICENSE            # License information
-├── README.md          # Project overview and usage guide
-├── failprint.log      # Log file for debugging and analysis
-├── pyproject.toml     # Project dependencies and build configuration
-└── setup.cfg          # Packaging and setup configuration
-
+report = analyze_nlp(texts, y_true, y_pred)
 ```
----
 
-## 🛠️ Troubleshooting
+Output Insight: "Failures are highly correlated with Sentiment Polarity < -0.5 and Word Count < 5."
 
-- **Can’t activate venv?**  
-  Try:  
-  ```sh
-  Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-  ```
-- **ModuleNotFoundError?**  
-  Make sure your virtual environment is activated and run:  
-  ```sh
-  pip install pandas scikit-learn seaborn
-  ```
-- **Report not generating?**  
-  Ensure your working directory is correct and that the `reports/` folder exists.
+### 3. CV Analysis (Images)
 
----
+Lazy-loads torch and torchvision to find visual failure clusters (e.g., "Dark images" or "Blurry dogs").
 
-## 🤝 Contributing
+```python
+from etsi.failprint import analyze_cv
 
-Contributions are welcome! If you have an idea for optimization, new features, or documentation improvements, please open a PR on GitHub.
+images = ["img1.jpg", "img2.jpg", "img3.jpg"]
+y_true = [0, 1, 0]
+y_pred = [0, 0, 0]
 
-- Refer to [CONTRIBUTING.md](https://github.com/etsi-ai/etsi-failprint/blob/main/CONTRIBUTING.md) for contribution guidelines.
-- If you have a workflow, dataset, or troubleshooting tip to share, please contribute to our [Getting Started Guide](docs/getting_started.md)!
+analyze_cv(images, y_true, y_pred)
+```
+
+Output Insight: "Cluster 0 (Dark Images) accounts for 60% of false negatives."
 
 ---
 
-## 💡 Future Contribution Ideas
+## Counterfactuals
 
-We welcome community contributions! Here are some ideas for future enhancements:
+Go beyond diagnostics. Ask "What should have happened?" This mode suggests the minimal change required to fix a prediction.
 
-- **Integration with additional MLOps platforms**  
-  Extend compatibility to more tools (e.g., Kubeflow, ZenML, Flyte) to streamline diagnostics in diverse ML pipelines.
+```python
+from etsi.failprint import analyze
 
-- **Advanced visualization dashboards**  
-  Add interactive dashboards (e.g., via Streamlit or Dash) for exploring failure patterns and root causes visually.
+# Run in counterfactual mode
+analyze(
+    X, y_true, y_pred,
+    output="counterfactuals"
+)
+```
 
-- **Explainability integrations**  
-  Incorporate explainability libraries (e.g., SHAP, LIME) to provide feature attribution for failure segments.
+Example Output:
 
-- **Support for unstructured data**  
-  Enable analysis of failures in NLP and CV models by integrating embedding-based clustering and drift detection.
-
-- **Plugin system for custom analyses**  
-  Allow users to add custom scripts or modules for domain-specific failure analysis.
-
-- **Expanded documentation and tutorials**  
-  Add more real-world examples, troubleshooting guides, and video walkthroughs to help new users get started quickly.
-
----
-
-## 📬 Contact
-
-If you have questions, feedback, or ideas, feel free to reach out to the maintainers:
-
-- **Priyansh Srivastava** – [GitHub](https://github.com/PriyanshSrivastava0305) | [Email](mailto:priyansh0305@gmail.com)  
-- **Romit Chatterjee** – [GitHub](https://github.com/Romit23) | [Email](mailto:chatterjeeromit86@gmail.com)  
-
-We’d love to hear from you and make **failprint** better together!
+```plaintext
+Original Input: {'Age': 22, 'Income': 35000, 'Education': 'High School'}
+Suggested Change: Education to 'Bachelor's'
+Prediction: Success (Counterfactual)
+```
 
 ---
 
-## 📄 License
+## Contributing
 
-This project is licensed under the BSD 2-Clause License.
+Pull requests are welcome!
 
-<details>
-<summary>📜 Click here to view full license</summary>
-
-<br>
-
-    BSD 2-Clause License
-
-    Copyright (c) 2025, et-si.ai
-
-    Redistribution and use in source and binary forms, with or without
-    modification, are permitted provided that the following conditions are met:
-
-    1. Redistributions of source code must retain the above copyright notice,
-       this list of conditions and the following disclaimer.
-
-    2. Redistributions in binary form must reproduce the above copyright notice,
-       this list of conditions and the following disclaimer in the documentation
-       and/or other materials provided with the distribution.
-
-    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
-    THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-    ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-    LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-    DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
-    AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-</details>
+Please refer to [CONTRIBUTING.md](https://github.com/etsi-ai/etsi-failprint/blob/main/CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](https://github.com/etsi-ai/etsi-failprint/blob/main/CODE_OF_CONDUCT.md) before submitting a Pull Request.
 
 ---
 
-> Made with ❤️ by the etsi-ai team
+## Join the Community
 
+Connect with the **etsi.ai** team and other contributors on our Discord.
 
+[![Discord](https://img.shields.io/badge/Discord-Join%20the%20Server-7289DA?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/invite/VCeY6H72rq)
+
+---
+
+## License
+
+This project is distributed under the **BSD-2-Clause License**. See the [LICENSE](https://github.com/etsi-ai/etsi-failprint/blob/main/LICENSE) for details.
+
+---
+
+> Built with ❤️ by etsi.ai
